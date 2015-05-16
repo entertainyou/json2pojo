@@ -5,34 +5,34 @@ var BASE = 'http://hijk.rocks/';
 
 describe('Basic type', function () {
     it('Number', function () {
-	assert.deepEqual(j(10, BASE), {
+	assert.deepEqual(j(10, {base: BASE}), {
 	    id: BASE,
 	    type: 'integer',
 	});
     });
 
     it('String', function () {
-	assert.deepEqual(j('10', BASE), {
+	assert.deepEqual(j('10', {base: BASE}), {
 	    id: BASE,
 	    type: 'string',
 	});
     });
 
     it('Boolean', function () {
-	assert.deepEqual(j(false, BASE), {
+	assert.deepEqual(j(false, {base: BASE}), {
 	    id: BASE,
 	    type: 'boolean',
 	});
     });
     
     it('Array', function () {
-	assert.deepEqual(j([], BASE), {
+	assert.deepEqual(j([], {base: BASE}), {
 	    id: BASE,
 	    type: 'array',
 	    items: '',
 	});
 
-	assert.deepEqual(j([1, 2, 3], BASE), {
+	assert.deepEqual(j([1, 2, 3], {base: BASE}), {
 	    id: BASE,
 	    type: 'array',
 	    items: {
@@ -43,14 +43,16 @@ describe('Basic type', function () {
     });
 
     it('Object', function () {
-	assert.deepEqual(j({}, BASE), {
+	assert.deepEqual(j({}, {base: BASE}), {
 	    type: 'object',
 	    id: BASE,
+	    additionalProperties: false,
 	    properties: {},
 	});
-	assert.deepEqual(j({a: 10}, BASE), {
+	assert.deepEqual(j({a: 10}, {base: BASE}), {
 	    type: 'object',
 	    id: BASE,
+	    additionalProperties: false,
 	    properties: {
 		a: {
 		    id: BASE + 'a',
@@ -58,9 +60,10 @@ describe('Basic type', function () {
 		},
 	    },
 	});
-	assert.deepEqual(j({a: 10, b: '20'}, BASE), {
+	assert.deepEqual(j({a: 10, b: '20'}, {base: BASE}), {
 	    type: 'object',
 	    id: BASE,
+	    additionalProperties: false,
 	    properties: {
 		a: {
 		    id: BASE + 'a',
@@ -77,21 +80,23 @@ describe('Basic type', function () {
 
 describe('Composite', function () {
     it('Array of object', function () {
-	assert.deepEqual(j([{}], BASE), {
+	assert.deepEqual(j([{}], {base: BASE}), {
 	    id: BASE,
 	    type: 'array',
 	    items: {
 		type: 'object',
 		id: BASE + 1,
+		additionalProperties: false,
 		properties: {},
 	    },
 	});
-	assert.deepEqual(j([{a: 10}], BASE), {
+	assert.deepEqual(j([{a: 10}], {base: BASE}), {
 	    id: BASE,
 	    type: 'array',
 	    items: {
 		type: 'object',
 		id: BASE + 1,
+		additionalProperties: false,
 		properties: {
 		    a: {
 			type: 'integer',

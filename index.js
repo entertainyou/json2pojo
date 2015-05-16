@@ -4,9 +4,9 @@ function getType(obj) {
     return Object.prototype.toString.call(obj).slice(8, -1);
 }
 
-function json2jsonschema(json, base, name) {
+function json2jsonschema(json, option) {
     var result = {};
-    result.id = base + name;
+    result.id = option.base + option.name;
     switch (getType(json)) {
     case 'Number':
 	result.type = 'integer';
@@ -19,14 +19,19 @@ function json2jsonschema(json, base, name) {
 	break;
     case 'Array':
 	result.type = 'array';
-	result.items = json.length > 0 ? json2jsonschema(json[0], base, 1) : '';
+	option.name = 1;
+	result.items = json.length > 0 ? json2jsonschema(json[0], option) : '';
 	break;
     case 'Object':
 	result.type = 'object';
 	result.properties = {};
+	if (!option.additionalProperties) {
+	    result.additionalProperties = false;
+	}
 	for (var key in json) {
 	    if (json.hasOwnProperty(key)) {
-		result.properties[key] = json2jsonschema(json[key], base, key);
+		option.name = key;
+		result.properties[key] = json2jsonschema(json[key], option);
 	    }
 	}
 	break;
@@ -36,10 +41,14 @@ function json2jsonschema(json, base, name) {
     return result;
 }
 
-function func(json, base, name) {
-    base = base || '';
-    name = name || '';
-    return json2jsonschema(json, base, name);
+function func(json, option) {
+    option = option || {};
+    option.base = option.base || '';
+    option.name = option.name || '';
+    if (!'addtionalProperties' in option) {
+	option.addtionalProperties = true;
+    }
+    return json2jsonschema(json, option);
 }
 
 module.exports = func;
