@@ -1,0 +1,14 @@
+{
+  "name": "json2jsonschema",
+  "version": "1.0.0",
+  "description": "JSON to JSON Schema converter",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mocha": "^2.2.5"
+  }
+}
