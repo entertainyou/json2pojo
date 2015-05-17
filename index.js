@@ -1,11 +1,12 @@
 'use strict';
 
-function getType(obj) {
-    return Object.prototype.toString.call(obj).slice(8, -1);
-}
+var assert = require('assert');
+var _ = require('underscore');
 
 function getJsonSchemaType(obj) {
-    switch (getType(obj)) {
+    var type = Object.prototype.toString.call(obj).slice(8, -1);
+    
+    switch (type) {
     case 'Number':
 	return 'integer';
     case 'String':
@@ -50,13 +51,35 @@ function getJsonSchema(json, option) {
 }
 
 var definitions = {};
+
+function gotDefinition(name, def) {
+    var old = definitions[name];
+    if (!old) {
+	definitions[name] = def;
+    } else {
+	var common = _.intersection(Object.keys(old.properties), Object.keys(def.properties));
+	var diff = _.difference(Object.keys(old.properties), Object.keys(def.properties));
+	var result = def;
+	common.forEach(function (key) {
+	    assert.deepEqual(old[key], def[key]);
+	});
+	// Object.assign
+	diff.forEach(function (key) {
+	    if (!key in result.properties) {
+		result.properties[key] = def[key];
+	    };
+	});
+	definitions[name] = result;
+    }
+}
+
 function json2jsonschema(json, option) {
     var name = option.name;
     var result = getJsonSchema(json, option);
     if (name !== null && result.type === 'object') {
 	var newResult = {};
 	newResult['$ref'] = '#/definitions/' + name;
-	definitions[name] = result;
+	gotDefinition(name, result);
 	result = newResult;
     }
     return result;

@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "mocha": "^2.2.5"
+    "mocha": "^2.2.5",
+    "underscore": "^1.8.3"
   }
 }
