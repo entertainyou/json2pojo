@@ -21,12 +21,8 @@ function getJsonSchemaType(obj) {
     }
 }
 
-var root;
-function json2jsonschema(json, option) {
+function getJsonSchema(json, option) {
     var result = {};
-    if (option.name === null) {
-	root = result;
-    }
     result.id = option.base + (option.name || '');
     result.type = getJsonSchemaType(json);
     switch (result.type) {
@@ -46,14 +42,6 @@ function json2jsonschema(json, option) {
 		result.properties[key] = json2jsonschema(json[key], option);
 	    }
 	}
-	if (name !== null) {
-	    var newResult = {};
-	    newResult['$ref'] = '#/definitions/' + name;
-	    
-	    root.definitions = root.definitions || {};
-	    root.definitions[name] = result;
-	    result = newResult;
-	};
 	break;
     default:
 	break;
@@ -61,14 +49,32 @@ function json2jsonschema(json, option) {
     return result;
 }
 
+var definitions = {};
+function json2jsonschema(json, option) {
+    var name = option.name;
+    var result = getJsonSchema(json, option);
+    if (name !== null && result.type === 'object') {
+	var newResult = {};
+	newResult['$ref'] = '#/definitions/' + name;
+	definitions[name] = result;
+	result = newResult;
+    }
+    return result;
+}
+
 function func(json, option) {
     option = option || {};
     option.base = option.base || '';
-    option.name = option.name || null;
+    option.name = null;
     if (!'additionalProperties' in option) {
 	option.additionalProperties = true;
     }
-    return json2jsonschema(json, option);
+    definitions = {};
+    var result = json2jsonschema(json, option);
+    if (Object.keys(definitions).length !== 0) {
+	result.definitions = definitions;
+    }
+    return result;
 }
 
 module.exports = func;
