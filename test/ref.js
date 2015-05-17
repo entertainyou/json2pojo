@@ -1,7 +1,7 @@
 var assert = require('assert');
 var j = require('../index');
 
-var BASE = 'http://hijk.rocks';
+var BASE = 'http://hijk.rocks/';
 
 describe('Reference', function () {
     it('Simple', function () {
@@ -30,7 +30,7 @@ describe('Reference', function () {
 	    definitions: {
 		dup: {
 		    type: 'object',
-		    id: 'dup',
+		    id: BASE + 'dup',
 		    additionalProperties: false,
 		    properties: {
 			a: {
@@ -41,7 +41,7 @@ describe('Reference', function () {
 		},
 		foo: {
 		    type: 'object',
-		    id: 'foo',
+		    id: BASE + 'foo',
 		    additionalProperties: false,
 		    properties: {
 			dup: {

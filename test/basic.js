@@ -36,7 +36,7 @@ describe('Basic type', function () {
 	    id: BASE,
 	    type: 'array',
 	    items: {
-		id: BASE + 1,
+		id: BASE + '0',
 		type: 'integer',
 	    }
 	});
