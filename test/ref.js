@@ -108,4 +108,21 @@ describe('Reference', function () {
 	};
 	assert.deepEqual(r, expected);
     });
+    it('Conflict', function () {
+	try {
+	    var r = j({
+		dup: {
+		    a: 10,
+		},
+		foo: {
+		    dup: {
+			a: 'Alice',
+			b: 30,
+		    },
+		},
+	    }, {base: BASE});
+	    assert(false);
+	} catch (e) {
+	};
+    });
 });
