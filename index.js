@@ -116,8 +116,13 @@ if (!module.parent) {
     var json = fs.readdirSync(dir).reduce(function (acc, current) {
         var file = path.resolve(dir, current);
         var buffer = fs.readFileSync(file);
-        var json = JSON.parse(buffer.toString());
-        acc[current] = json;
+	try {
+            var json = JSON.parse(buffer.toString());
+            acc[current] = json;
+	} catch (e) {
+	    console.error(buffer.toString());
+	    throw e;
+	}
         return acc;
     }, {});
 
