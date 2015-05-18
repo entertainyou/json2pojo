@@ -102,4 +102,25 @@ function func(json, option) {
 
 module.exports = func;
 
+if (!module.parent) {
+    if (process.argv.length !== 4) {
+        console.log('incorrect argument length\n', process.argv[0], process.argv[1], 'dir', 'base');
+        return;
+    }
+    var dir = process.argv[2];
+    var base = process.argv[3];
+    var fs = require('fs');
+    var path = require('path');
+    var json = fs.readdirSync(dir).reduce(function (acc, current) {
+        var file = path.resolve(dir, current);
+        var buffer = fs.readFileSync(file);
+        var json = JSON.parse(buffer.toString());
+        acc[current] = json;
+        return acc;
+    }, {});
 
+    var result = func(json, {
+        base: base,
+    });
+    console.log(JSON.stringify(result));
+}
