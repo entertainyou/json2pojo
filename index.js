@@ -90,6 +90,9 @@ function json2jsonschema(json, option) {
 function func(json, option) {
     option = option || {};
     option.base = option.base || '';
+    if (option.base.length !== 1 && option.base[option.base.length - 1] !== '/') {
+        option.base += '/';
+    }
     option.name = null;
     if (!'additionalProperties' in option) {
 	option.additionalProperties = true;
