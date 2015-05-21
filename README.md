@@ -11,8 +11,7 @@ Install:
     npm install -g json2pojo
 
 Usage:
-
-    json2pojo json_directory base_url java_package_name
+    json2pojo json_directory args_to_jsonschema2pojo
     
 For generate POJO from the following json:
 

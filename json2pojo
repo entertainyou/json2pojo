@@ -1,22 +1,15 @@
 #!/usr/bin/env bash
 
-if [ $# -ne 3 ];
-then
-    echo "$0 dir base package"
-    exit 1
-fi
-
 SCRIPTPATH=$(readlink -f "$0")
 SCRIPTDIR=$(dirname "$SCRIPTPATH")
 
-#echo $SCRIPTPATH $SCRIPTDIR
-
 dir=$1
-base=$2
-package=$3
+shift 1
 
 tmp=$(mktemp /tmp/AXXXXXXXX)
-node ${SCRIPTDIR}/index.js $1 $2 > ${tmp}
-java -jar ${SCRIPTDIR}/external/jsonschema2pojo*/jsonschema2pojo-cli-0.4.11.jar -s ${tmp} -t java-gen -p ${package} -a GSON -E -S -R -P
-name=$(basename $tmp)
-find java-gen/ -name ${name}.java | xargs rm
+node ${SCRIPTDIR}/index.js $dir '' > ${tmp}
+
+# old args -t java-gen -p ${package} -a GSON -E -S -R -P
+java -jar ${SCRIPTDIR}/external/jsonschema2pojo*/jsonschema2pojo-cli-0.4.11.jar -s ${tmp} "$@"
+# name=$(basename $tmp)
+# find java-gen/ -name ${name}.java | xargs rm
