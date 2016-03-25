@@ -8,8 +8,7 @@ shift 1
 
 tmp=$(mktemp /tmp/AXXXXXXXX)
 node ${SCRIPTDIR}/index.js $dir '' > ${tmp}
-
 # old args -t java-gen -p ${package} -a GSON -E -S -R -P
-java -jar ${SCRIPTDIR}/external/jsonschema2pojo*/jsonschema2pojo-cli-0.4.11.jar -s ${tmp} "$@"
+java -jar ${SCRIPTDIR}/external/jsonschema2pojo*/jsonschema2pojo-cli-0.4.11.jar -s ${tmp} -a GSON -t java-gen "$@"
 # name=$(basename $tmp)
 # find java-gen/ -name ${name}.java | xargs rm
