@@ -1,1 +1,7 @@
+*~
+node_modules/
+java-gen/
+.idea/
+
+# Additional stuff(DONT publish)
 test/
