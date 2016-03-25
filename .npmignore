@@ -5,3 +5,5 @@ java-gen/
 
 # Additional stuff(DONT publish)
 test/
+.travis.yml
+.npmignore
