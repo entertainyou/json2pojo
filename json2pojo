@@ -16,4 +16,4 @@ node ${SCRIPTDIR}/index.js $dir '' > ${tmp}
 #  S omit toString
 #  R remove old output
 #  P use primitive
-java -jar ${SCRIPTDIR}/external/jsonschema2pojo*/jsonschema2pojo-cli-0.4.11.jar -s ${tmp} -a GSON -E -S -R -P java-gen "$@"
+java -jar ${SCRIPTDIR}/external/jsonschema2pojo*/jsonschema2pojo-cli-0.4.11.jar -s ${tmp} -a GSON -E -S -R -P -t java-gen "$@"
