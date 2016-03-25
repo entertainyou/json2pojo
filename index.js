@@ -116,37 +116,8 @@ if (!module.parent) {
   var base = process.argv[3];
   var fs = require('fs');
   var path = require('path');
-  var assert = require('assert');
   var rp = require('request-promise');
   var url = require('url');
-
-  function visitFile(file, json) {
-    var buffer = fs.readFileSync(file);
-    try {
-      var data = JSON.parse(buffer.toString());
-      assert(!json[path.basename(file)]);
-      json[path.basename(file)] = data;
-    } catch (e) {
-      console.error(buffer.toString());
-      throw e;
-    }
-  }
-
-  function visitDirectory(dir, json) {
-    fs.readdirSync(dir).forEach(function (elem) {
-      var file = path.resolve(file, elem);
-      visit(file);
-    });
-  }
-
-  function visit(dir, json) {
-    var stats = fs.statSync(file);
-    if (stats.isFile()) {
-      visitFile(file, json);
-    } else if (stats.isDirectory()) {
-      visitDirectory(file, json);
-    }
-  }
 
   function visitEntryFile(file) {
     var result = {};
@@ -155,7 +126,12 @@ if (!module.parent) {
     });
     // console.log(buffer.split('\n'));
     var promises = buffer.split('\n').map(function (url) {
-      return rp(encodeURI(url));
+      return rp({
+        uri: url,
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101 Firefox/45.0',
+        }
+      });
     });
 
     return Promise.all(promises).then(function (results) {
