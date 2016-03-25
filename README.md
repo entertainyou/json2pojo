@@ -3,7 +3,6 @@
 [![NPM version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
 [![Downloads][downloads-image]][downloads-url]
-[![Circle CI](https://circleci.com/gh/entertainyou/json2pojo.svg?style=svg)](https://circleci.com/gh/entertainyou/json2pojo)
 
 JSON to POJO with duplicate key handling, uses jsonschema2pojo(http://jsonschema2pojo.org/) to do the schema to POJO code generation.
 
