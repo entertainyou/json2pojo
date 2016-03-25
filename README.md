@@ -12,21 +12,17 @@ Install:
 
 Usage:
 
-    json2pojo json_directory args_to_jsonschema2pojo
-    
+    json2pojo API
+
 For generate POJO from the following json:
 
-    # test
-    {
-      "foo": {
-        "dup": {"value": 10},
-      },
-      "dup": {"value": 20},
-    }
+    # API
+    https://api.github.com/users/nodejs/repos
+    https://api.github.com/repos/nodejs/node/branches
 
 Generated POJO:
 
-    Foo.java Dup.java Test.java
+    Branch.java  Commit.java  Owner.java  Repo.java
 
 [npm-image]: https://img.shields.io/npm/v/json2pojo.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/json2pojo

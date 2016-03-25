@@ -1,6 +1,6 @@
 {
   "name": "json2pojo",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "JSON to POJO with duplicate key handling",
   "main": "index.js",
   "directories": {
