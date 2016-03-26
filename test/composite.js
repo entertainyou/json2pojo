@@ -1,7 +1,8 @@
-var assert = require('assert');
-var j = require('../index');
 
-var BASE = 'http://hijk.rocks/';
+var assert = require('assert');
+var j = require('../lib/json2schema');
+
+var BASE = 'http://google.com/';
 
 describe('Composite', function () {
     it('Array of object', function () {

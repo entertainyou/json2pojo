@@ -1,7 +1,7 @@
-var j = require('../index.js');
+var j = require('../lib/json2schema');
 var assert = require('assert');
 
-var BASE = 'http://hijk.rocks/';
+var BASE = 'http://google.com/';
 
 describe('Basic type', function () {
     it('Number', function () {

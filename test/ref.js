@@ -1,7 +1,7 @@
+const j = require('../lib/json2schema');
 var assert = require('assert');
-var j = require('../index');
 
-var BASE = 'http://hijk.rocks/';
+var BASE = 'http://google.com/';
 
 describe('Reference', function () {
     it('Simple', function () {
