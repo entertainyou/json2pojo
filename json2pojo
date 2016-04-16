@@ -6,10 +6,10 @@ SCRIPTDIR=$(dirname "$SCRIPTPATH")
 dir=$1
 shift 1
 
-tmp=$(mktemp /tmp/AXXXXXXXX)
+tmp=$(mktemp /tmp/TEMPXXXXXXXX)
 node ${SCRIPTDIR}/index.js $dir '' > ${tmp}
 
-TARGET=java-gen
+#TARGET=java-gen
 # flags:
 #  s source folder
 #  a annotation
@@ -17,8 +17,8 @@ TARGET=java-gen
 #  S omit toString
 #  R remove old output
 #  P use primitive
-java -jar ${SCRIPTDIR}/external/jsonschema2pojo*/jsonschema2pojo-cli-0.4.11.jar -s ${tmp} -a GSON -E -S -R -P -t ${TARGET} "$@"
+java -jar ${SCRIPTDIR}/external/jsonschema2pojo*/jsonschema2pojo-cli-0.4.11.jar -s ${tmp} -a GSON -E -S -P "$@"
 
-rm -f ${TARGET}/$(basename $tmp).java
+#rm -f ${TARGET}/$(basename $tmp).java
 
 echo "Generated JSON file ${tmp}, POJO generated in ${TARGET}"
