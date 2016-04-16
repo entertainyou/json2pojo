@@ -12,15 +12,15 @@ Install:
 
 Usage:
 
-    json2pojo API
+    json2pojo API -p com.example
 
 For generate POJO from the following json:
 
     # API
-    https://api.github.com/users/nodejs/repos
-    https://api.github.com/repos/nodejs/node/branches
+    GET https://api.github.com/users/nodejs/repos Repo
+    GET https://api.github.com/repos/nodejs/node/branches Branch
 
-Generated POJO:
+Generated POJO(under com.example package):
 
     Branch.java  Commit.java  Owner.java  Repo.java
 

@@ -20,3 +20,5 @@ TARGET=java-gen
 java -jar ${SCRIPTDIR}/external/jsonschema2pojo*/jsonschema2pojo-cli-0.4.11.jar -s ${tmp} -a GSON -E -S -R -P -t ${TARGET} "$@"
 
 rm -f ${TARGET}/$(basename $tmp).java
+
+echo "Generated JSON file ${tmp}, POJO generated in ${TARGET}"
