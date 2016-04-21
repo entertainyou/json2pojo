@@ -19,6 +19,6 @@ node ${SCRIPTDIR}/index.js $dir '' > ${tmp}
 #  P use primitive
 java -jar ${SCRIPTDIR}/external/jsonschema2pojo*/jsonschema2pojo-cli-0.4.11.jar -s ${tmp} -a GSON -E -S -P "$@"
 
-#rm -f ${TARGET}/$(basename $tmp).java
+rm -f ${TARGET}/$(basename $tmp).java
 
-echo "Generated JSON file ${tmp}, POJO generated in ${TARGET}"
+echo "Generated JSON schema file in ${tmp}, POJO class generated."
